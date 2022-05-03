@@ -11,20 +11,6 @@ const template = Handlebars.compile(`
     {{/each}}
 `)
 
-/* function renderProducts(data) {
-    const html = data.map((elem, index) => {
-        return (`
-            <tr>
-                <td>${elem.name}</td>
-                <td>${elem.price}</td>
-                <td><img src="${elem.image}" alt="${elem.name}" width="100"></td>
-            </tr>
-        `)
-    }).append('')
-    console.log(html)
-    document.getElementById('products').innerHTML = html
-} */
-
 function addProduct(e) {
     const product = {
         name: document.getElementById('name').value,

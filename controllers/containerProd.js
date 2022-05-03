@@ -1,3 +1,7 @@
+const { knexP } = require('../options/sqlite3.js');
+/* const knex = require('knex')(options); */
+/* const { default: knex } = require("knex") */
+
 const products = [
     {
         id: "1",
@@ -46,17 +50,40 @@ const products = [
     }    
 ]
 
+function dropTable() {
+    knexP.schema.dropTable("products")
+        .then(() => { console.log("Tabla borrada") })
+        .catch(err => { console.log(err) })
+}
+
+function createTable() {
+    knexP.schema.createTable("products", table => {
+        table.increments("id")
+        table.string("image")
+        table.string("name")
+        table.string("description")
+        table.integer("price")
+        table.integer("stock")
+        table.integer("category")
+    })
+        .then(() => { console.log("Tabla creada") })
+        .catch(err => { console.log(err) })
+
+    knexP("products").insert(products)
+        .then( () => { console.log("Productos agregados"); } )
+        .catch( (err) => { console.log(err); throw err } )
+}
+
 function getProducts() {
-    return products
+    knexP.from("products").select("*")
+        .then(data => { return data })
+        .catch(err => { console.log(err); throw err })
 }
 
 function saveProduct(product) {
-    let lastIndex = products.length - 1
-    let lastId = products[lastIndex].id
-    let newId = parseInt(lastId) + 1
-    const newProduct = { ...product, id: newId.toString() }
-    products.push(newProduct)
-    return products
+    knexP("products").insert(product)
+        .then(() => { console.log("Producto guardado") })
+        .catch(err => { console.log(err); throw err })
 }
 
-module.exports = { getProducts, saveProduct }
+module.exports = { dropTable, createTable, getProducts, saveProduct }

@@ -1,6 +1,6 @@
 const express = require('express');
 const { Router } = express
-const { getProducts } = require('../controllers/container')
+const { getProducts } = require('../controllers/containerProd')
 
 const routerProducts = Router()
 

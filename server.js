@@ -1,6 +1,6 @@
 const express = require('express');
 const routerProducts = require('./routes/index.js')
-const { saveProduct, getProducts } = require('./controllers/container.js')
+const { dropTable, createTable, saveProduct, getProducts } = require('./controllers/containerProd.js')
 
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
@@ -60,7 +60,8 @@ const dataMessages = [
     }
 ]
 
-const saludos = "hola mundo"
+dropTable()
+createTable()
 
 ioServer.on('connection', (socket) => {
     console.log('Nueva conexión')
@@ -70,21 +71,10 @@ ioServer.on('connection', (socket) => {
         dataMessages.push(data)
         ioServer.sockets.emit('messages', dataMessages)
     });
-    
-    /* socket.emit('greetings', saludos)
-    socket.on('new-greeting', (saludo) => {
-        saludos = saludo
-        ioServer.sockets.emit('greetings', saludos)
-    }); */
-    /* socket.on('greetings', (data) => {
-        saludos = data
-        ioServer.sockets.emit('greetings', saludos)
-    }); */
 
     socket.emit('products', getProducts());
     socket.on('new-product', (product) => {
         saveProduct(product)
-        console.log("productos");
         ioServer.sockets.emit('products', getProducts())
     });
 
