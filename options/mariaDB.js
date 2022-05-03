@@ -1,11 +1,11 @@
-const knexC = require('knex')({
+const knexP = require('knex')({
     client: 'mysql',
     connection: {
         host: '127.0.0.1',
         user: 'root',
         password: '',
-        database: 'test'
+        database: 'ecommerce'
     }
 })
 
-module.exports = { knexC };
+module.exports = { knexP };

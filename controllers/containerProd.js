@@ -1,4 +1,4 @@
-const { knexP } = require('../options/sqlite3.js');
+const { knexP } = require('../options/mariaDB.js');
 /* const knex = require('knex')(options); */
 /* const { default: knex } = require("knex") */
 
@@ -51,7 +51,7 @@ const products = [
 ]
 
 function dropTable() {
-    knexP.schema.dropTable("products")
+    knexP.schema.dropTableIfExists("products")
         .then(() => { console.log("Tabla borrada") })
         .catch(err => { console.log(err) })
 }

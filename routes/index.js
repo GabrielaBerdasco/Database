@@ -1,11 +1,11 @@
 const express = require('express');
 const { Router } = express
-const { getProducts } = require('../controllers/containerProd')
+const { getProducts } = require('../controllers/containerProd.js')
 
 const routerProducts = Router()
 
-routerProducts.get('/', (req, res) => {
-    let products = getProducts()
+routerProducts.get('/', async (req, res) => {
+    let products = await getProducts()
     res.render('main', { products: products })
 })
 

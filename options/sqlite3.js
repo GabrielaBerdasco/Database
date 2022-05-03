@@ -1,4 +1,4 @@
-const knexP = require('knex')({
+const knexC = require('knex')({
     client: 'sqlite3',
     connection: {
         filename: './db/database.sqlite'
@@ -6,4 +6,4 @@ const knexP = require('knex')({
     useNullAsDefault: true
 });
 
-module.exports = { knexP };
+module.exports = { knexC };
